@@ -14,5 +14,8 @@
     "svelte": "^4",
     "tailwindcss": "^3",
     "vite": "^4"
+  },
+  "engines": {
+    "node": ">=15"
   }
 }
