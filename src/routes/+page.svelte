@@ -54,7 +54,12 @@
 
 <div class="container">
   <main>
-    <Title />
+    <div class="card w-full bg-neutral text-neutral-content">
+      <div class="card-body text-center">
+        <Title />
+      </div>
+    </div>
+    <div class="divider"></div>
     {#if isLoading}
       <!-- Muestra el esqueleto mientras se cargan los datos -->
       <div class="card w-full bg-neutral text-neutral-content">
