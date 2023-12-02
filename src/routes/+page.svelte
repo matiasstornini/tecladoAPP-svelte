@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
-  import Buttons from '../components/AllButton.svelte';
-  import Title from '../components/Title.svelte';
+  import Buttons from "../components/AllButton.svelte";
+  import Title from "../components/Title.svelte";
 
   let usuarios = [];
   let isLoading = true;
@@ -9,7 +9,7 @@
   async function fetchUsers() {
     try {
       const response = await fetch(
-        "https://docs.google.com/spreadsheets/d/1uD_UtAaYl8lh7w_8VWRCnVi-Ugat-O_2V-puezenbdw/gviz/tq?tqx=out:json&sheet=Test"
+        "https://docs.google.com/spreadsheets/d/1uD_UtAaYl8lh7w_8VWRCnVi-Ugat-O_2V-puezenbdw/gviz/tq?tqx=out:json&sheet=Admin"
       );
       if (response.ok) {
         const textData = await response.text();
@@ -23,10 +23,12 @@
           const number = row.c[0].v;
           const match = row.c[1].v;
           const competition = row.c[2].v;
+          const statics = row.c[3].v;
           const switchs = row.c[4].v;
           const link = row.c[5].v;
           const link2 = row.c[6].v;
           const link3 = row.c[7].v;
+          const message = row.c[11]?.v || ""; // Asigna un valor predeterminado si es undefined
 
           // Convertir timestamp a HH:MM
           const date = new Date(row.c[0].v * 1000);
@@ -34,7 +36,16 @@
           const minutes = "0" + date.getMinutes();
           const formattedTime = hours.substr(-2) + ":" + minutes.substr(-2);
 
-          return { number, match, competition, switchs, links: [link, link2, link3], formattedTime };
+          return {
+            number,
+            match,
+            competition,
+            switchs,
+            links: [link, link2, link3],
+            formattedTime,
+            message,
+            statics
+          };
         });
 
         // Después de cargar los datos, establecer isLoading en falso
@@ -60,6 +71,7 @@
       </div>
     </div>
     <div class="divider"></div>
+
     {#if isLoading}
       <!-- Muestra el esqueleto mientras se cargan los datos -->
       <div class="card w-full bg-neutral text-neutral-content">
@@ -70,15 +82,34 @@
       </div>
       <div class="divider"></div>
     {:else}
-      {#each usuarios as usuario, index}
+      {#if usuarios.length > 0}
+        <div role="alert" class="alert alert-info">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="stroke-current shrink-0 w-6 h-6"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path></svg
+          >
+          <span>{usuarios[0].message}</span>
+        </div>
+        <div class="divider"></div>
+      {/if}
+      <!-- ... -->
+      {#each usuarios.slice(0) as usuario, index}
         <div key={index}>
           <div class="card w-full bg-neutral text-neutral-content">
             <div class="card-body text-left">
-              <h3>{usuario.competition}</h3>
-              <p class="text-xl">{usuario.formattedTime} {usuario.match}</p>
+              <h3 class="b-1">{usuario.competition}</h3>
+              <p class="text-xl b-1">{usuario.formattedTime} {usuario.match}</p>
               <div class="card-actions">
                 <Buttons switchs={usuario.switchs} links={usuario.links} />
-                <button class="btn btn-primary"><b>Estadisticas</b></button>
+                <a href={usuario.statics} class="btn btn-primary"><b>Estadisticas</b></a>
               </div>
             </div>
           </div>
@@ -97,7 +128,9 @@
   .container {
     @apply mx-auto p-4;
   }
-
+  .b-1{
+    color: #fff;
+  }
   main {
     @apply text-center;
   }

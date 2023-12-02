@@ -11,8 +11,5 @@
     }
   </script>
   
-  <div class="card-actions">
     <a on:click={handleClick} href={link} class="btn btn-primary">Abrir</a>
     <!-- Puedes seguir la misma estructura para los otros botones -->
-  </div>
-  
