@@ -5,6 +5,7 @@
 
   let usuarios = [];
   let isLoading = true;
+  let isInsideAndroidApp = false; // Declarar la variable aquí
 
   async function fetchUsers() {
     try {
@@ -61,8 +62,22 @@
   // Llama a fetchUsers al cargar la página
   import { onMount } from "svelte";
   onMount(fetchUsers);
+  onMount(() => {
+    // Lista de paquetes de aplicaciones permitidos
+    const allowedPackages = ['com.playfut.gtx', 'com.tcl.october']; // Agrega tantos como necesites
+
+    // Comprueba si la aplicación está cargada dentro de uno de los paquetes permitidos
+    isInsideAndroidApp = allowedPackages.includes(window?.androidAppIdentifier);
+
+    // Si no está dentro de un paquete permitido, puedes manejar el comportamiento adecuado aquí
+    if (!isInsideAndroidApp) {
+      console.warn('La aplicación no está cargada dentro de un paquete de aplicaciones permitido.');
+      // Puedes mostrar un mensaje, redirigir a una página específica, etc.
+    }
+  });
 </script>
 
+{#if isInsideAndroidApp}
 <div class="container">
   <main>
     <div class="card w-full bg-neutral text-neutral-content">
@@ -119,6 +134,12 @@
     {/if}
   </main>
 </div>
+{:else}
+  <!-- Puedes mostrar un mensaje o redirigir a otra página si no está en la app Android -->
+  <div>
+    <h1>Esta aplicación solo funciona dentro de la app Android esperada.</h1>
+  </div>
+{/if}
 
 <style>
   @import "tailwindcss/base";
