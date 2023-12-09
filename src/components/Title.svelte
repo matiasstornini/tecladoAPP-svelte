@@ -1,5 +1,6 @@
 <script>
   export let text = "TecladoAPP";
+  export let instagram = "Instagram";
 </script>
 
 <div class="hero min-h-screen bg-base-200">
@@ -9,9 +10,22 @@
         <h1 class="gradient-title2 absolute top-0 left-0 w-full h-full">{text}</h1>
         <h1 class="gradient-title">{text}</h1>
       </div>
-
     </div>
-
+  </div>
+</div>
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md flex items-center justify-between">
+      <div class="flex items-center"> <!-- Nueva línea para alinear los elementos en la misma línea -->
+        <h2 class="mr-2">Seguinos:</h2> <!-- Agregado margen derecho para separar "Seguinos:" del siguiente elemento -->
+        <div class="relative">
+          <a href="https://www.instagram.com/innovadesignalp/" target="_blank" rel="noopener noreferrer" class="gradient-title2 absolute top-0 left-0 w-full h-full">
+            {instagram}
+          </a>
+          <h2 class="gradient-title">{instagram}</h2>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -23,12 +37,18 @@
   /* Importa tu fuente personalizada si no es de Google Fonts */
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-
-  h1 {
-    @apply text-4xl font-bold mb-4;
+  h1, h2, a {
+    @apply font-bold mb-4;
     font-family: 'Bebas Neue', sans-serif;
   }
 
+  h1 {
+    @apply text-5xl;
+  }
+
+  h2, a {
+    @apply text-2xl; /* Puedes ajustar el tamaño según tus preferencias */
+  }
   .follow-section {
     @apply flex items-center;
   }
