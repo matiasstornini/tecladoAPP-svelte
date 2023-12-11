@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
-  import Buttons from "../components/AllButton.svelte";
-  import Title from "../components/Title.svelte";
+  import Buttons from "../../components/AllButton.svelte";
+  import Title from "../../components/Title.svelte";
 
   let usuarios = [];
   let isLoading = true;
@@ -126,6 +126,12 @@
   @import "tailwindcss/base";
   @import "tailwindcss/components";
   @import "tailwindcss/utilities";
+/* Agrega este estilo para ocultar el enlace en dispositivos móviles */
+.btn {
+  /* Añade otros estilos según sea necesario */
+  touch-action: manipulation; /* Evita el resaltado del enlace y el arrastre en dispositivos táctiles */
+  user-select: none; /* Evita la selección del texto al hacer clic en el enlace */
+}
 
   .container {
     @apply mx-auto p-4;
