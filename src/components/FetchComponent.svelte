@@ -22,10 +22,10 @@
             return { number, match, competition };
           });
         } else {
-          console.error("Error al obtener usuarios.");
+          console.error("Error al obtener los partidos.");
         }
       } catch (error) {
-        console.error("Error al obtener usuarios.", error);
+        console.error("Error al obtener los partidos.", error);
       }
     }
   

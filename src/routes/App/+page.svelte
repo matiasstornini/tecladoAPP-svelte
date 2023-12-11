@@ -111,7 +111,7 @@
               <p class="text-xl b-1">{usuario.formattedTime} {usuario.match}</p>
               <div class="card-actions">
                 <Buttons switchs={usuario.switchs} links={usuario.links} />
-                <a href={usuario.statics} class="btn btn-primary"><b>Estadisticas</b></a>
+                <a href={usuario.statics} class="btn btn-primary" draggable="false"><b>Estadisticas</b></a>
               </div>
             </div>
           </div>

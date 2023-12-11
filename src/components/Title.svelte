@@ -19,7 +19,7 @@
       <div class="flex items-center"> <!-- Nueva línea para alinear los elementos en la misma línea -->
         <h2 class="mr-2">Seguinos:</h2> <!-- Agregado margen derecho para separar "Seguinos:" del siguiente elemento -->
         <div class="relative">
-          <a href="https://www.instagram.com/innovadesignalp/" target="_blank" rel="noopener noreferrer" class="gradient-title2 absolute top-0 left-0 w-full h-full">
+          <a href="https://www.instagram.com/innovadesignalp/" target="_blank" rel="noopener noreferrer" class="gradient-title2 absolute top-0 left-0 w-full h-full" draggable="false">
             {instagram}
           </a>
           <h2 class="gradient-title">{instagram}</h2>

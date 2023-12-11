@@ -11,5 +11,5 @@
     }
   </script>
   
-    <a on:click={handleClick} href={link} class="btn btn-primary">Abrir</a>
+    <a on:click={handleClick} href={link} class="btn btn-primary" draggable="false">Abrir</a>
     <!-- Puedes seguir la misma estructura para los otros botones -->
