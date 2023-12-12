@@ -58,10 +58,18 @@
     }
   }
 
+
   // Llama a fetchUsers al cargar la página
   import { onMount } from "svelte";
   onMount(fetchUsers);
-  
+
+  // Actualiza automáticamente los datos cada 5 minutos
+  const intervalId = setInterval(fetchUsers, 5 * 60 * 1000);
+
+  // Limpiar el intervalo al destruir el componente (evitar fugas de memoria)
+  onDestroy(() => {
+    clearInterval(intervalId);
+  });
 </script>
 
 <div class="container">
