@@ -60,7 +60,7 @@
 
 
   // Llama a fetchUsers al cargar la página
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   onMount(fetchUsers);
 
   // Actualiza automáticamente los datos cada 5 minutos
