@@ -29,6 +29,8 @@
           const link2 = row.c[6].v;
           const link3 = row.c[7].v;
           const message = row.c[11]?.v || ""; // Asigna un valor predeterminado si es undefined
+          const url13 = row.c[13]?.v || ""; // Asigna un valor predeterminado si es undefined
+          const nameButton = row.c[13]?.v || ""; // Asigna un valor predeterminado si es undefined
 
           // Convertir timestamp a HH:MM
           const date = new Date(row.c[0].v * 1000);
@@ -44,7 +46,9 @@
             links: [link, link2, link3],
             formattedTime,
             message,
-            statics
+            statics,
+            url13,
+            nameButton
           };
         });
 
@@ -107,6 +111,8 @@
             ></path></svg
           >
           <span>{usuarios[0].message}</span>
+          <a href="{usuarios[0].url13}" class="btn btn-success" draggable="false">{usuarios[1].nameButton}</a>
+
         </div>
         <div class="divider"></div>
       {/if}
