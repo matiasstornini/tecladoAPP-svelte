@@ -93,7 +93,7 @@
         </div>
       </div>
       <div class="divider"></div>
-    {:else}
+    {:else}<!--
       {#if usuarios.length > 0}
         {#if usuarios[0].message != "null"}
           <div role="alert" class="alert alert-info">
@@ -121,6 +121,7 @@
           <div class="divider"></div>
         {/if}
       {/if}
+      -->
       <!-- ... -->
       {#each usuarios.slice(0) as usuario, index}
         <div key={index}>
