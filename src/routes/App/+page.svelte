@@ -48,7 +48,7 @@
             message,
             statics,
             url13,
-            nameButton
+            nameButton,
           };
         });
 
@@ -61,7 +61,6 @@
       console.error("Error al obtener usuarios.", error);
     }
   }
-
 
   // Llama a fetchUsers al cargar la página
   import { onMount, onDestroy } from "svelte";
@@ -81,7 +80,6 @@
     <div class="card w-full bg-neutral text-neutral-content">
       <div class="card-body text-center">
         <Title />
-
       </div>
     </div>
     <div class="divider"></div>
@@ -97,24 +95,31 @@
       <div class="divider"></div>
     {:else}
       {#if usuarios.length > 0}
-        <div role="alert" class="alert alert-info">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            class="stroke-current shrink-0 w-6 h-6"
-            ><path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path></svg
-          >
-          <span>{usuarios[0].message}</span>
-          <a href="{usuarios[0].url13}" class="btn btn-success" draggable="false">{usuarios[1].nameButton}</a>
-
-        </div>
-        <div class="divider"></div>
+        {#if usuarios[0].message != "null"}
+          <div role="alert" class="alert alert-info">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="stroke-current shrink-0 w-6 h-6"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path></svg
+            >
+            <span>{usuarios[0].message}</span>
+            {#if usuarios[0].url13 != "null"}
+              <a
+                href={usuarios[0].url13}
+                class="btn btn-success"
+                draggable="false">{usuarios[1].nameButton}</a
+              >
+            {/if}
+          </div>
+          <div class="divider"></div>
+        {/if}
       {/if}
       <!-- ... -->
       {#each usuarios.slice(0) as usuario, index}
@@ -125,7 +130,11 @@
               <p class="text-xl b-1">{usuario.formattedTime} {usuario.match}</p>
               <div class="card-actions">
                 <Buttons switchs={usuario.switchs} links={usuario.links} />
-                <a href={usuario.statics} class="btn btn-primary" draggable="false"><b>Estadisticas</b></a>
+                <a
+                  href={usuario.statics}
+                  class="btn btn-primary"
+                  draggable="false"><b>Estadisticas</b></a
+                >
               </div>
             </div>
           </div>
@@ -140,17 +149,17 @@
   @import "tailwindcss/base";
   @import "tailwindcss/components";
   @import "tailwindcss/utilities";
-/* Agrega este estilo para ocultar el enlace en dispositivos móviles */
-.btn {
-  /* Añade otros estilos según sea necesario */
-  touch-action: manipulation; /* Evita el resaltado del enlace y el arrastre en dispositivos táctiles */
-  user-select: none; /* Evita la selección del texto al hacer clic en el enlace */
-}
+  /* Agrega este estilo para ocultar el enlace en dispositivos móviles */
+  .btn {
+    /* Añade otros estilos según sea necesario */
+    touch-action: manipulation; /* Evita el resaltado del enlace y el arrastre en dispositivos táctiles */
+    user-select: none; /* Evita la selección del texto al hacer clic en el enlace */
+  }
 
   .container {
     @apply mx-auto p-4;
   }
-  .b-1{
+  .b-1 {
     color: #fff;
   }
   main {
