@@ -93,7 +93,68 @@
         </div>
       </div>
       <div class="divider"></div>
-    {:else}<!--
+    {:else}
+      <!-- Sección del partido destacado -->
+      <div class="relative">
+        <h1 class="gradient-title2 absolute top-0 left-0 w-full h-full">
+          EVENTO DESTACADO:
+        </h1>
+        <h1 class="gradient-title">EVENTO DESTACADO:</h1>
+      </div>
+      {#if usuarios.length > 0}
+        <div class="card w-96 bg-base-100 shadow-xl">
+          <figure>
+            <img
+              src="https://depor.com/resizer/Ceo7LZhH9kuC6qZrk7qEHkowuWI=/580x330/smart/filters:format(jpeg):quality(90)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HOQLZZQW25EWZGFXHBM5PFLZZM.jpg"
+              alt="Shoes"
+            />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">{usuarios[3].competition}</h2>
+            <h2 class="card-title">
+              {usuarios[3].formattedTime}
+              {usuarios[3].match}
+            </h2>
+            <div class="card-actions">
+              <Buttons
+                switchs={usuarios[3].switchs}
+                links={usuarios[3].links}
+              />
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+      {/if}
+
+      <!-- Sección de la lista de partidos -->
+      {#each usuarios.slice(0) as usuario, index}
+        <div key={index}>
+          <div class="card w-full bg-neutral text-neutral-content">
+            <div class="card-body text-left">
+              <h3 class="b-1">{usuario.competition}</h3>
+              <p class="text-xl b-1">
+                {usuario.formattedTime}
+                {usuario.match}
+              </p>
+              <div class="card-actions">
+                <Buttons switchs={usuario.switchs} links={usuario.links} />
+                <a
+                  href={usuario.statics}
+                  class="btn btn-primary"
+                  draggable="false"><b>Estadisticas</b></a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+        </div>
+      {/each}
+    {/if}
+  </main>
+</div>
+
+<!--
+      
       {#if usuarios.length > 0}
         {#if usuarios[0].message != "null"}
           <div role="alert" class="alert alert-info">
@@ -122,30 +183,7 @@
         {/if}
       {/if}
       -->
-      <!-- ... -->
-      {#each usuarios.slice(0) as usuario, index}
-        <div key={index}>
-          <div class="card w-full bg-neutral text-neutral-content">
-            <div class="card-body text-left">
-              <h3 class="b-1">{usuario.competition}</h3>
-              <p class="text-xl b-1">{usuario.formattedTime} {usuario.match}</p>
-              <div class="card-actions">
-                <Buttons switchs={usuario.switchs} links={usuario.links} />
-                <a
-                  href={usuario.statics}
-                  class="btn btn-primary"
-                  draggable="false"><b>Estadisticas</b></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="divider"></div>
-        </div>
-      {/each}
-    {/if}
-  </main>
-</div>
-
+<!-- ... -->
 <style>
   @import "tailwindcss/base";
   @import "tailwindcss/components";
@@ -173,5 +211,66 @@
 
   li {
     @apply mb-2 bg-white rounded-md shadow-md p-4;
+  }
+
+  .gradient-title {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    background-image: linear-gradient(
+      90deg,
+      oklch(var(--s)) 4%,
+      color-mix(in oklch, oklch(var(--s)), oklch(var(--er))) 22%,
+      oklch(var(--p)) 45%,
+      color-mix(in oklch, oklch(var(--p)), oklch(var(--a))) 67%,
+      oklch(var(--a)) 100.2%
+    );
+
+    background-size: 600% 100%;
+    animation: gradientAnimation 10s linear infinite;
+
+    /* Add backdrop for blur effect */
+    position: relative;
+    filter: blur(15px);
+    backdrop-filter: blur(15px);
+  }
+
+  .gradient-title2 {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(
+      90deg,
+      oklch(var(--s)) 4%,
+      color-mix(in oklch, oklch(var(--s)), oklch(var(--er))) 22%,
+      oklch(var(--p)) 45%,
+      color-mix(in oklch, oklch(var(--p)), oklch(var(--a))) 67%,
+      oklch(var(--a)) 100.2%
+    );
+
+    background-size: 600% 100%;
+    animation: gradientAnimation 10s linear infinite;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Asegura que este elemento esté detrás del otro */
+  }
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .relative {
+    position: relative;
   }
 </style>
