@@ -73,6 +73,7 @@
   onDestroy(() => {
     clearInterval(intervalId);
   });
+  
 </script>
 
 <div class="container">
@@ -94,7 +95,7 @@
       </div>
       <div class="divider"></div>
     {:else}
-      <!-- Sección del partido destacado -->
+      <!-- Sección del partido destacado 
       <div class="relative">
         <h1 class="gradient-title2 absolute top-0 left-0 w-full h-full">
           EVENTO DESTACADO:
@@ -125,7 +126,7 @@
         </div>
         <div class="divider"></div>
       {/if}
-
+-->
       <!-- Sección de la lista de partidos -->
       {#each usuarios.slice(0) as usuario, index}
         <div key={index}>
