@@ -108,10 +108,13 @@
             <p class="text-xl b-1">
               {usuario.formattedTime}
               {usuario.match}
-              {#if now > usuario.number && now < new Date((usuario.number * 1000 + 2 * 60 * 60*1000)/1000)}
+              {#if now <= usuario.number}
+                  <span class="indicator-item badge badge-primary">No empezó</span>
+
+              {:else if now >= usuario.number && now < new Date((usuario.number * 1000 + 2 * 60 * 60*1000)/1000)}
                   <span class="indicator-item badge badge-primary">En vivo</span>
                   {:else}
-                  <span class="indicator-item badge badge-secundary">Terminado</span>
+                  <span class="indicator-item badge badge-secundary">Terminó</span>
               {/if}
             </p>
             <div class="card-actions">
