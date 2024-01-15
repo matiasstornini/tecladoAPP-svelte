@@ -5,6 +5,8 @@
 
   let usuarios = [];
   let isLoading = true;
+  var data = [];
+  var now = Math.floor(Date.now() / 1000);
 
   async function fetchUsers() {
     try {
@@ -61,7 +63,7 @@
       console.error("Error al obtener usuarios.", error);
     }
   }
-
+  console.log(now)
   // Llama a fetchUsers al cargar la página
   import { onMount, onDestroy } from "svelte";
   onMount(fetchUsers);
@@ -95,61 +97,33 @@
       </div>
       <div class="divider"></div>
     {:else}
-      <!-- Sección del partido destacado 
-      <div class="relative">
-        <h1 class="gradient-title2 absolute top-0 left-0 w-full h-full">
-          EVENTO DESTACADO:
-        </h1>
-        <h1 class="gradient-title">EVENTO DESTACADO:</h1>
-      </div>
-      {#if usuarios.length > 0}
-        <div class="card w-96 bg-base-100 shadow-xl">
-          <figure>
-            <img
-              src="https://depor.com/resizer/Ceo7LZhH9kuC6qZrk7qEHkowuWI=/580x330/smart/filters:format(jpeg):quality(90)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HOQLZZQW25EWZGFXHBM5PFLZZM.jpg"
-              alt="Shoes"
-            />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">{usuarios[3].competition}</h2>
-            <h2 class="card-title">
-              {usuarios[3].formattedTime}
-              {usuarios[3].match}
-            </h2>
+
+      <!-- Sección de la lista de partidos -->
+      {#each usuarios.slice(0) as usuario, index}
+      <div key={index}>
+        <div class="card w-full bg-neutral text-neutral-content">
+          <div class="card-body text-left">
+
+            <h3 class="b-1">{usuario.competition}</h3>
+            <p class="text-xl b-1">
+              {usuario.formattedTime}
+              {usuario.match}
+              {#if now > usuario.number && now < new Date((usuario.number * 1000 + 2 * 60 * 60*1000)/1000)}
+                  <span class="indicator-item badge badge-primary">En vivo</span>
+                  {:else}
+                  <span class="indicator-item badge badge-secundary">Terminado</span>
+              {/if}
+            </p>
             <div class="card-actions">
-              <Buttons
-                switchs={usuarios[3].switchs}
-                links={usuarios[3].links}
-              />
+              <Buttons switchs={usuario.switchs} links={usuario.links} />
+              <a href={usuario.statics} class="btn btn-primary" draggable="false"><b>Estadisticas</b></a>
             </div>
           </div>
         </div>
         <div class="divider"></div>
-      {/if}
--->
-      <!-- Sección de la lista de partidos -->
-      {#each usuarios.slice(0) as usuario, index}
-        <div key={index}>
-          <div class="card w-full bg-neutral text-neutral-content">
-            <div class="card-body text-left">
-              <h3 class="b-1">{usuario.competition}</h3>
-              <p class="text-xl b-1">
-                {usuario.formattedTime}
-                {usuario.match}
-              </p>
-              <div class="card-actions">
-                <Buttons switchs={usuario.switchs} links={usuario.links} />
-                <a
-                  href={usuario.statics}
-                  class="btn btn-primary"
-                  draggable="false"><b>Estadisticas</b></a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="divider"></div>
-        </div>
-      {/each}
+      </div>
+    {/each}
+    
     {/if}
   </main>
 </div>
@@ -184,6 +158,38 @@
         {/if}
       {/if}
       -->
+            <!-- Sección del partido destacado 
+      <div class="relative">
+        <h1 class="gradient-title2 absolute top-0 left-0 w-full h-full">
+          EVENTO DESTACADO:
+        </h1>
+        <h1 class="gradient-title">EVENTO DESTACADO:</h1>
+      </div>
+      {#if usuarios.length > 0}
+        <div class="card w-96 bg-base-100 shadow-xl">
+          <figure>
+            <img
+              src="https://depor.com/resizer/Ceo7LZhH9kuC6qZrk7qEHkowuWI=/580x330/smart/filters:format(jpeg):quality(90)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/HOQLZZQW25EWZGFXHBM5PFLZZM.jpg"
+              alt="Shoes"
+            />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">{usuarios[3].competition}</h2>
+            <h2 class="card-title">
+              {usuarios[3].formattedTime}
+              {usuarios[3].match}
+            </h2>
+            <div class="card-actions">
+              <Buttons
+                switchs={usuarios[3].switchs}
+                links={usuarios[3].links}
+              />
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+      {/if}
+-->
 <!-- ... -->
 <style>
   @import "tailwindcss/base";
