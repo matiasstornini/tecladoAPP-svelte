@@ -6,9 +6,12 @@
   let usuarios = [];
   let isLoading = true;
   var data = [];
-  var now = Math.floor(Date.now() / 1000);
+
+  import { writable } from 'svelte/store';
+
+  // Crear una store reactiva para 'now'
+  const now = writable(Math.floor(Date.now() / 1000));
   let newnow = now - 300;
-console.log("TIMESTAMP - 10m: "+newnow)
   async function fetchUsers() {
     try {
       const response = await fetch(
@@ -64,7 +67,6 @@ console.log("TIMESTAMP - 10m: "+newnow)
       console.error("Error al obtener usuarios.", error);
     }
   }
-  console.log(now);
   // Llama a fetchUsers al cargar la página
   import { onMount, onDestroy } from "svelte";
   onMount(fetchUsers);
@@ -99,41 +101,37 @@ console.log("TIMESTAMP - 10m: "+newnow)
     {:else}
       <!-- Sección de la lista de partidos -->
       <!-- Agrega una declaración reactiva que dependa de 'now' -->
-      {#if true}
-        {#each usuarios.slice(0) as usuario, index}
-          <div key={index}>
-            <div class="card w-full bg-neutral text-neutral-content">
-              <div class="card-body text-left">
-                <h3 class="b-1">{usuario.competition}</h3>
-                <p class="text-xl b-1">
-                  {usuario.formattedTime}
-                  {usuario.match}
-                  {#if now >= usuario.number-600 && now < new Date((usuario.number * 1000 + 2 * 60 * 60 * 1000) / 1000)}
-                    <span class="indicator-item badge badge-live">En vivo</span>
-                  {:else if now <= usuario.number}
-                    <span class="indicator-item badge badge-primary"
-                      >No empezó</span
-                    >
-                  {:else}
-                    <span class="indicator-item badge badge-secundary"
-                      >Terminó</span
-                    >
-                  {/if}
-                </p>
-                <div class="card-actions">
-                  <Buttons switchs={usuario.switchs} links={usuario.links} />
-                  <a
-                    href={usuario.statics}
-                    class="btn btn-primary"
-                    draggable="false"><b>Estadisticas</b></a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="divider"></div>
-          </div>
-        {/each}
-      {/if}
+<!-- Sección de la lista de partidos -->
+{#each usuarios.slice(0) as usuario, index}
+  <div key={index}>
+    <div class="card w-full bg-neutral text-neutral-content">
+      <div class="card-body text-left">
+        <h3 class="b-1">{usuario.competition}</h3>
+        <p class="text-xl b-1">
+          {usuario.formattedTime}
+          {usuario.match}
+          {#if $now >= usuario.number - 600 && $now < new Date((usuario.number * 1000 + 2 * 60 * 60 * 1000) / 1000)}
+            <span class="indicator-item badge badge-live">En vivo</span>
+          {:else if $now <= usuario.number}
+            <span class="indicator-item badge badge-primary">No empezó</span>
+          {:else}
+            <span class="indicator-item badge badge-secundary">Terminó</span>
+          {/if}
+        </p>
+        <div class="card-actions">
+          <Buttons switchs={usuario.switchs} links={usuario.links} />
+          <a
+            href={usuario.statics}
+            class="btn btn-primary"
+            draggable="false"
+          ><b>Estadísticas</b></a>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </div>
+{/each}
+
     {/if}
   </main>
 </div>
