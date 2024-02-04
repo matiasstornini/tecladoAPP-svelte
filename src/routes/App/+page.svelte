@@ -7,7 +7,7 @@
   let isLoading = true;
   var data = [];
 
-  import { writable } from 'svelte/store';
+  import { writable } from "svelte/store";
 
   // Crear una store reactiva para 'now'
   const now = writable(Math.floor(Date.now() / 1000));
@@ -101,37 +101,65 @@
     {:else}
       <!-- Sección de la lista de partidos -->
       <!-- Agrega una declaración reactiva que dependa de 'now' -->
-<!-- Sección de la lista de partidos -->
-{#each usuarios.slice(0) as usuario, index}
-  <div key={index}>
-    <div class="card w-full bg-neutral text-neutral-content">
-      <div class="card-body text-left">
-        <h3 class="b-1">{usuario.competition}</h3>
-        <p class="text-xl b-1">
-          {usuario.formattedTime}
-          {usuario.match}
-          {#if $now >= usuario.number - 600 && $now < new Date((usuario.number * 1000 + 2 * 60 * 60 * 1000) / 1000)}
-            <span class="indicator-item badge badge-live">En vivo</span>
-          {:else if $now <= usuario.number}
-            <span class="indicator-item badge badge-primary">No empezó</span>
-          {:else}
-            <span class="indicator-item badge badge-secundary">Terminó</span>
-          {/if}
-        </p>
-        <div class="card-actions">
-          <Buttons switchs={usuario.switchs} links={usuario.links} />
+      {#if usuarios[0].message != "null"}
+      <div role="alert" class="alert alert-error">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="stroke-current shrink-0 w-6 h-6"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path></svg
+        >
+        <span>{usuarios[0].message}</span>
+        <!-- {#if usuarios[0].url13 != "null"}
           <a
-            href={usuario.statics}
-            class="btn btn-primary"
-            draggable="false"
-          ><b>Estadísticas</b></a>
-        </div>
+            href={usuarios[0].url13}
+            class="btn btn-success"
+            draggable="false">{usuarios[1].nameButton}</a
+          >
+        {/if} -->
       </div>
-    </div>
-    <div class="divider"></div>
-  </div>
-{/each}
-
+      <div class="divider"></div>
+    {/if}
+      <!-- Sección de la lista de partidos -->
+      {#each usuarios.slice(0) as usuario, index}
+        <div key={index}>
+          <div class="card w-full bg-neutral text-neutral-content">
+            <div class="card-body text-left">
+              <h3 class="b-1">{usuario.competition}</h3>
+              <p class="text-xl b-1">
+                {usuario.formattedTime}
+                {usuario.match}
+                {#if $now >= usuario.number - 600 && $now < new Date((usuario.number * 1000 + 2 * 60 * 60 * 1000) / 1000)}
+                  <span class="indicator-item badge badge-live">En vivo</span>
+                {:else if $now <= usuario.number}
+                  <span class="indicator-item badge badge-primary"
+                    >No empezó</span
+                  >
+                {:else}
+                  <span class="indicator-item badge badge-secundary"
+                    >Terminó</span
+                  >
+                {/if}
+              </p>
+              <div class="card-actions">
+                <Buttons switchs={usuario.switchs} links={usuario.links} />
+                <a
+                  href={usuario.statics}
+                  class="btn btn-primary"
+                  draggable="false"><b>Estadísticas</b></a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+        </div>
+      {/each}
     {/if}
   </main>
 </div>
