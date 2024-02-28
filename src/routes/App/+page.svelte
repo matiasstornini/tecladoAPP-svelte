@@ -87,6 +87,7 @@
         <Title />
       </div>
     </div>
+    <ins class="01d94676" data-key="06204f8a1f807df4131aaa5bd8c90b39" data-cp-host="37097cad0d42436db1131930350b25c3|2|teclado-app-svelte.vercel.app"></ins>
     <div class="divider"></div>
 
     {#if isLoading}
@@ -104,7 +105,7 @@
       <!-- Sección de la lista de partidos -->
       <!-- Agrega una declaración reactiva que dependa de 'now' -->
       {#if usuarios[0].message != "null"}
-      <!-- <div role="alert" class="alert alert-error">
+      <div role="alert" class="alert alert-error">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -118,15 +119,14 @@
           ></path></svg
         >
         <span>{usuarios[0].message}</span>
-        {#if usuarios[0].url13 != "null"}
+        <!-- {#if usuarios[0].url13 != "null"}
           <a
             href={usuarios[0].url13}
             class="btn btn-success"
             draggable="false">{usuarios[1].nameButton}</a
           >
-        {/if} 
-      </div>-->
-      <ins class="01d94676" data-key="06204f8a1f807df4131aaa5bd8c90b39" data-cp-host="37097cad0d42436db1131930350b25c3|2|teclado-app-svelte.vercel.app"></ins>
+        {/if} -->
+      </div>
 
       <div class="divider"></div>
     {/if}
