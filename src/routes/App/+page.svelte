@@ -87,7 +87,7 @@
         <Title />
       </div>
     </div>
-    <!-- <ins class="01d94676" data-key="06204f8a1f807df4131aaa5bd8c90b39" data-cp-host="37097cad0d42436db1131930350b25c3|2|teclado-app-svelte.vercel.app"></ins> -->
+    <ins class="01d94676" data-key="06204f8a1f807df4131aaa5bd8c90b39" data-cp-host="37097cad0d42436db1131930350b25c3|2|teclado-app-svelte.vercel.app"></ins>
     <div class="divider"></div>
 
     {#if isLoading}
