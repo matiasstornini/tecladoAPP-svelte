@@ -103,7 +103,7 @@
 
     {:else}
       <!-- Sección de la lista de partidos -->
-      <!-- Agrega una declaración reactiva que dependa de 'now'
+      <!-- Agrega una declaración reactiva que dependa de 'now' -->
       {#if usuarios[0].message != "null"}
       <div role="alert" class="alert alert-error">
         <svg
@@ -119,14 +119,14 @@
           ></path></svg
         >
         <span>{usuarios[0].message}</span>
-{#if usuarios[0].url13 != "null"}
+        <!-- {#if usuarios[0].url13 != "null"}
           <a
             href={usuarios[0].url13}
             class="btn btn-success"
             draggable="false">{usuarios[1].nameButton}</a
           >
-        {/if} 
-      </div>-->
+        {/if} -->
+      </div>
 
       <div class="divider"></div>
     {/if}
